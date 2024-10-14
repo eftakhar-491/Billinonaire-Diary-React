@@ -2,20 +2,34 @@ import { useEffect, useState } from "react";
 import ListDetails from "./ListDetails";
 import PersonModal from "./PersonModal";
 
-export default function ShowAllDetails() {
+export default function ShowAllDetails({ search }) {
   const [allData, setAllData] = useState([]);
-
+  const [x, setX] = useState([]);
   useEffect(() => {
     async function fx() {
       const res = await fetch(
         "https://forbes400.onrender.com/api/forbes400/getAllBillionaires"
       );
       const data = await res.json();
-
+      console.log("xxx");
+      setX(data);
       setAllData(data);
     }
     fx();
   }, []);
+
+  useEffect(() => {
+    console.log(search);
+    if (!search) {
+      setAllData(x);
+    } else {
+      setAllData(
+        x.filter((item) =>
+          item.personName.toLowerCase().includes(search.toLowerCase())
+        )
+      );
+    }
+  }, [search]);
 
   return (
     <section className="mt-6 ">
@@ -31,7 +45,7 @@ export default function ShowAllDetails() {
           </tr>
         </thead>
         <tbody>
-          {allData.map((currentdata, i) => {
+          {allData?.map((currentdata, i) => {
             return <ListDetails data={currentdata} doxe={i} key={i} />;
           })}
         </tbody>
