@@ -11,7 +11,7 @@ export default function ShowAllDetails({ search }) {
         "https://forbes400.onrender.com/api/forbes400/getAllBillionaires"
       );
       const data = await res.json();
-      console.log("xxx");
+
       setX(data);
       setAllData(data);
     }
@@ -19,7 +19,6 @@ export default function ShowAllDetails({ search }) {
   }, []);
 
   useEffect(() => {
-    console.log(search);
     if (!search) {
       setAllData(x);
     } else {

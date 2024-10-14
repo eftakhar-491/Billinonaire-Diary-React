@@ -7,11 +7,8 @@ export default function ListDetails(props) {
     return <h1>data loading..</h1>;
   }
 
-  //   console.log(data);
-
   const [modal, setModal] = useState(false);
   function showModal(data) {
-    console.log(data);
     setModal(data);
   }
   return (
